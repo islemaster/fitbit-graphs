@@ -1,0 +1,4 @@
+<?php
+define('FITBIT_KEY', '[your-key-here]');
+define('FITBIT_SECRET', '[your-secret-here]');
+
