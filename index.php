@@ -48,54 +48,7 @@ $sleepInfo = array_map($mapFunc, $sleepStartTimes, $sleepDurations);
   <head>
     <title>FitBit Graphs</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <style type="text/css">
-      .avatar {
-        float: right;
-      }
-
-      .xml {
-        margin: 1em;
-        padding: 1em;
-        border: lightgray dashed thin;
-      }
-
-      .xml:hover {
-        border: blue dashed thin;
-      }
-
-      .graph_wrapper {
-        display: inline-block;
-        border: solid lightgray thin;
-      }
-      .graph_wrapper .graph_header {
-        border-bottom: solid lightgray thin;
-        overflow: auto;
-        width: 100%;
-      }
-      .graph_wrapper .start_label {
-        float: left;
-      }
-      .graph_wrapper .end_label {
-        float: right;
-      }
-      .graph_wrapper .clear_both {
-        clear: both;
-      }
-
-      .sleep_start_times div {
-        font: 12px sans-serif;
-        background-color: steelblue;
-        text-align: center;
-        padding: 3px;
-        margin: 1px;
-        color: white;
-        overflow: hidden;
-      }
-      .sleep_start_times div div {
-        padding: 0;
-        margin: 0;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="build/css/master.css" />
     <script src="lib/jquery-2.1.3.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script language="javascript" type="text/javascript">
