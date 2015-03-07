@@ -51,97 +51,12 @@ $sleepInfo = array_map($mapFunc, $sleepStartTimes, $sleepDurations);
     <link rel="stylesheet" type="text/css" href="build/css/master.css" />
     <script src="lib/jquery-2.1.3.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="build/js/sleepGraph.js" charset="utf-8"></script>
     <script language="javascript" type="text/javascript">
       var sleepInfo = <?php echo json_encode($sleepInfo); ?>;
-
       $(function () {
-
-        // D3 generate sleep start time chart
-        var scaleFactor = 1.0;
-        var offsetMinutes = 20 * 60;
-        var wrapperDiv = d3.select('.sleep_start_times');
-
-        wrapperDiv.style('width', (scaleFactor * (16 * 60)) + 'px');
-
-        var singleBar = wrapperDiv.selectAll('div')
-          .data(sleepInfo)
-          .enter()
-          .append('div');
-        
-        singleBar
-          .style('width', function (d) {
-            return (scaleFactor * (d.timeInBed)) + 'px';
-          })
-          .style('margin-left', function (d) {
-            if (d.startTime === '') {
-              return '0px';
-            }
-            var parts = d.startTime.split(':');
-            var hours = parseInt(parts[0], 10);
-            var minutes = parseInt(parts[1], 10);
-            if (hours < 12) {
-              hours += 24;
-            }
-            return (scaleFactor * (hours * 60 + minutes - offsetMinutes)) + 'px';
-          })
-          .text(function (d) {
-            if (d.startTime === '') {
-              return "\xA0";
-            }
-            var hours = Math.floor(d.timeInBed / 60);
-            var minutes = d.timeInBed % 60;
-            return d.dateTime + ' - ' + hours + 'h ' + minutes + 'm';
-          });
-
-        singleBar.append('div')
-          .style('float', 'left')
-          .text(function (d) {
-            if (d.startTime === '') {
-              return '';
-            }
-
-            var parts = d.startTime.split(':');
-            var hours = parseInt(parts[0], 10);
-            var minutes = parseInt(parts[1], 10);
-            var ampm = hours >= 12 ? 'pm' : 'am';
-            hours = (hours % 12 === 0) ? 12 : hours % 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            return hours + ':' + minutes + ampm;
-          });
-
-        singleBar.append('div')
-          .style('float', 'right')
-          .text(function (d) {
-            if (d.startTime === '') {
-              return '';
-            }
-
-            var parts = d.startTime.split(':');
-            var hours = parseInt(parts[0], 10);
-            var minutes = parseInt(parts[1], 10);
-            var startTimeMinutes = hours * 60 + minutes;
-            var endTimeMinutes = (startTimeMinutes + parseInt(d.timeInBed, 10)) % (24 * 60);
-
-            hours = Math.floor(endTimeMinutes / 60);
-            var ampm = hours >= 12 ? 'pm' : 'am';
-            minutes = endTimeMinutes % 60;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            
-            return hours + ':' + minutes + ampm;
-          });
-
-
-        // Set up auto-hide for XML
-        $('.xml').click(function (event) {
-          var preTag = $(event.target).find('pre');
-          if (preTag.is(':visible')) {
-            preTag.hide();
-          } else {
-            preTag.show();
-          }
-        });
-        $('.xml pre').hide();
-
+        window.fitbitGraphs.generateChart('.sleep_start_times', sleepInfo);
+        window.fitbitGraphs.autoHide('.xml');
       });
     </script>
   </head>
